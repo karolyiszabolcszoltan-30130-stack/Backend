@@ -11,7 +11,32 @@ const getKonyvById = (req, res) => {
     res.json(konyv);
 }
 
+const getKonyvekByAr = (req, res) => {
+    let paramAr = Number(req.params.price);
+    let konyvekByAr = konyvek.filter(konyv => konyv.price < paramAr);
+    res.json(konyvekByAr);
+}
+
+const getKonyvDarab = (req, res) => {
+    res.json({darab: konyvek.length});
+}
+
+const getKonyvByCim = (req, res) =>{
+    const cim = req.params.cim.toLowerCase().trim();
+    const konyv = konyvek.filter(konyv => {
+        let kisbetus = konyv.title.toLowerCase().trim().replace(/\s/g, "")
+        if(kisbetus == cim)
+        {
+            return konyv
+        }
+    });
+    res.json(konyv);
+}
+
 module.exports = {
     getKonyvek,
-    getKonyvById
+    getKonyvById,
+    getKonyvekByAr,
+    getKonyvDarab,
+    getKonyvByCim
 }
