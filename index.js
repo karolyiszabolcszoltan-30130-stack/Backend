@@ -8,7 +8,10 @@ const {
     getKonyvDarab,
     getKonyvByCim,
     getKonyvBySzerzo,
-    getKonyvekByCategory
+    getKonyvekByCategory,
+    getKonyvekByArFelett,
+    getKonyvekByOldalszam,
+    getEvUtaniKonyvek
 } = require("./services/konyvekservice");
 // http://localhost:3030
 app.use(express.json());
@@ -20,7 +23,6 @@ app.get("/", (req, res) => {
     res.status(200).json({info: "Könyvek backend alkalmazás"})
 });
 
-
 app.get("/konyvek", getKonyvek);
 app.get("/konyvek/db", getKonyvDarab);
 
@@ -30,3 +32,6 @@ app.get("/konyvek/ar/:price", getKonyvekByAr);
 app.get("/konyvek/cim/:cim", getKonyvByCim);
 app.get("/konyvek/szerzo/:szerzo", getKonyvBySzerzo);
 app.get("/konyvek/kategoria/:kategoria", getKonyvekByCategory);
+app.get("/konyvek/arfelett/:price", getKonyvekByArFelett);
+app.get("/konyvek/oldalszam/:oldalszam", getKonyvekByOldalszam);
+app.get("/konyvek/evszam/:evszam", getEvUtaniKonyvek);

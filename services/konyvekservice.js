@@ -55,6 +55,24 @@ const getKonyvekByCategory = (req, res) => {
     });
     res.json(konyv);
 }
+// scope szintű véltozók pl: paramAr
+const getKonyvekByArFelett = (req, res) => {
+    let paramAr = Number(req.params.price);
+    let konyvekByAr = konyvek.filter(konyv => konyv.price > paramAr);
+    res.json(konyvekByAr);
+}
+
+const getKonyvekByOldalszam = (req, res) => {
+    const paramOldalszam = Number(req.params.oldalszam);
+    const konyvekByOldalszam = konyvek.filter(konyv => konyv.pages < paramOldalszam);
+    res.json(konyvekByOldalszam);
+}
+
+const getEvUtaniKonyvek = (req, res) => {
+    const paramEvszam = Number(req,params.evszam);
+    const konyvekEvszamUtan = konyvek.filter(konyv => konyv.year > paramEvszam);
+    res.json(konyvekEvszamUtan);
+}
 
 module.exports = {
     getKonyvek,
@@ -63,5 +81,8 @@ module.exports = {
     getKonyvDarab,
     getKonyvByCim,
     getKonyvBySzerzo,
-    getKonyvekByCategory
+    getKonyvekByCategory,
+    getKonyvekByArFelett,
+    getKonyvekByOldalszam,
+    getEvUtaniKonyvek
 }
