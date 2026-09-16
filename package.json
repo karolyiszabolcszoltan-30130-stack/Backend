@@ -1,0 +1,19 @@
+{
+  "name": "konyvek",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "node": "^26.8.2",
+    "nodemon": "^3.1.14"
+  }
+}
