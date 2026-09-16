@@ -6,7 +6,9 @@ const {
     getKonyvById,
     getKonyvekByAr,
     getKonyvDarab,
-    getKonyvByCim
+    getKonyvByCim,
+    getKonyvBySzerzo,
+    getKonyvekByCategory
 } = require("./services/konyvekservice");
 // http://localhost:3030
 app.use(express.json());
@@ -21,8 +23,10 @@ app.get("/", (req, res) => {
 
 app.get("/konyvek", getKonyvek);
 app.get("/konyvek/db", getKonyvDarab);
+
 //Parameteres a lista aljara:
 app.get("/konyvek/:id", getKonyvById);
 app.get("/konyvek/ar/:price", getKonyvekByAr);
 app.get("/konyvek/cim/:cim", getKonyvByCim);
-
+app.get("/konyvek/szerzo/:szerzo", getKonyvBySzerzo);
+app.get("/konyvek/kategoria/:kategoria", getKonyvekByCategory);

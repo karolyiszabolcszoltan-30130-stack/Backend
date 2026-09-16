@@ -33,10 +33,35 @@ const getKonyvByCim = (req, res) =>{
     res.json(konyv);
 }
 
+const getKonyvBySzerzo = (req, res) => {
+    const szerzo = req.params.szerzo.toLowerCase().replace(/\s/g, "");
+    const konyv = konyvek.filter(konyv => {
+        let kisbetus = konyv.author.toLowerCase().trim().replace(/\s/g, "")
+        if(kisbetus == szerzo)
+        {
+            return konyv
+        }
+    });
+    res.json(konyv);
+}
+
+const getKonyvekByCategory = (req, res) => {
+    const kategoria = req.params.kategoria.toLowerCase().replace(/\s/g, "");
+    const konyv = konyvek.filter(konyv => {
+        let kisbetus = konyv.category.toLowerCase().replace(/\s/g, "");
+        if(kisbetus == kategoria){
+            return konyv;
+        }
+    });
+    res.json(konyv);
+}
+
 module.exports = {
     getKonyvek,
     getKonyvById,
     getKonyvekByAr,
     getKonyvDarab,
-    getKonyvByCim
+    getKonyvByCim,
+    getKonyvBySzerzo,
+    getKonyvekByCategory
 }
