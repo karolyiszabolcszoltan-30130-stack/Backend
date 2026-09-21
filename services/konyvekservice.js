@@ -110,27 +110,42 @@ const createKonyv = (req, res) => {
 }
 
 const updateKonyv = (req, res) => {
-    const {id} = req.params;
-    const {title, author, category, year, pages, price} = req.body;
-    const konyv = konyvek.find(konyv => konyv.id == Number(id));
-    
-    konyv.title = title;
-    konyv.author = author;
-    konyv.category = category;
-    konyv.year = year;
-    konyv.pages = pages;
-    konyv.price = price;
 
-    res.json({message: "Sikeres módosítás!"})
-}
+    // ha nincs ilyen id amit törölni akarunk akkor "Törölni kivánt könyv nem elérhető!"
+    const { id } = req.params;
+    const { title, author, category, year, pages, price } = req.body;
+
+    const konyv = konyvek.find(konyv => konyv.id === Number(id));
+
+    if (!konyv) {
+        return res.status(404).json({ message: "A törölni kívánt könyv nem elérhető!" });
+    }
+
+    if (title !== undefined) konyv.title = title;
+    if (author !== undefined) konyv.author = author;
+    if (category !== undefined) konyv.category = category;
+    if (year !== undefined) konyv.year = Number(year);
+    if (pages !== undefined) konyv.pages = Number(pages);
+    if (price !== undefined) konyv.price = Number(price);
+
+    res.status(200).json({ 
+        message: "Sikeres módosítás!"
+    });
+};
 
 const deleteKonyv = (req, res) => {
-    const {id} = req.params;
-    const {title, author, category, year, pages, price} = req.body;
-    const konyv = konyvek.find(konyv => konyv.id == Number(id));
+    const { id } = req.params;
 
-    konyvek.splice(konyv, 1);
-}
+    const index = konyvek.findIndex(konyv => konyv.id === Number(id));
+
+    if (index === -1) {
+        return res.status(404).json({ message: "A könyv nem található." });
+    }
+
+    konyvek.splice(index, 1);
+
+    res.status(200).json({ message: "Könyv sikeresen törölve lett." });
+};
 
 module.exports = {
     getKonyvek,
