@@ -73,6 +73,64 @@ const getEvUtaniKonyvek = (req, res) => {
     const konyvekEvszamUtan = konyvek.filter(konyv => konyv.year > paramEvszam);
     res.json(konyvekEvszamUtan);
 }
+const createKonyv = (req, res) => {
+    //Mit csinál ez a végpont?
+    //1. Használható formába hozni a request.bodyt
+    const {title, author, category, year, pages, price} = req.body;
+
+    //2. Felépíteni a konyv objektumot
+        // Az id, Views automatikus - default
+    
+    let maxId = 0;
+    const azonositok = konyvek.map(konyv => konyv.id);
+    for (let i = 0; i < azonositok.length; i++){
+        if(azonositok[i] > maxId){
+            maxId = azonositok[i];
+        }
+    }
+    
+    let views = 0; 
+    let id = maxId + 1;
+
+    let konyv = {
+        id,
+        title,
+        author,
+        category,
+        year,
+        pages,
+        price,
+        views
+    }
+
+    konyvek.push(konyv);
+    //3. Visszaküldjük hogy sikeres
+    //console.log(req.body);
+    res.json({message: "Sikeres adatfelvétel!"});
+}
+
+const updateKonyv = (req, res) => {
+    const {id} = req.params;
+    const {title, author, category, year, pages, price} = req.body;
+    const konyv = konyvek.find(konyv => konyv.id == Number(id));
+    
+    konyv.title = title;
+    konyv.author = author;
+    konyv.category = category;
+    konyv.year = year;
+    konyv.pages = pages;
+    konyv.price = price;
+
+    res.json({message: "Sikeres módosítás!"})
+}
+
+const deleteKonyv = (req, res) => {
+    const {id} = req.params;
+    const {title, author, category, year, pages, price} = req.body;
+    const konyv = konyvek.find(konyv => konyv.id == Number(id));
+
+    konyvek.splice(konyv, 1);
+}
 
 module.exports = {
     getKonyvek,
@@ -84,5 +142,8 @@ module.exports = {
     getKonyvekByCategory,
     getKonyvekByArFelett,
     getKonyvekByOldalszam,
-    getEvUtaniKonyvek
+    getEvUtaniKonyvek,
+    createKonyv,
+    updateKonyv,
+    deleteKonyv
 }

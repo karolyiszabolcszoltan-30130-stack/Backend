@@ -1,3 +1,4 @@
+//request body - adatok kuldese kliens oldalrol a szerverre
 let konyvek = [
 {
 id: 1,

@@ -11,7 +11,10 @@ const {
     getKonyvekByCategory,
     getKonyvekByArFelett,
     getKonyvekByOldalszam,
-    getEvUtaniKonyvek
+    getEvUtaniKonyvek,
+    createKonyv,
+    updateKonyv,
+    deleteKonyv
 } = require("./services/konyvekservice");
 // http://localhost:3030
 app.use(express.json());
@@ -25,7 +28,6 @@ app.get("/", (req, res) => {
 
 app.get("/konyvek", getKonyvek);
 app.get("/konyvek/db", getKonyvDarab);
-
 //Parameteres a lista aljara:
 app.get("/konyvek/:id", getKonyvById);
 app.get("/konyvek/ar/:price", getKonyvekByAr);
@@ -35,3 +37,9 @@ app.get("/konyvek/kategoria/:kategoria", getKonyvekByCategory);
 app.get("/konyvek/arfelett/:price", getKonyvekByArFelett);
 app.get("/konyvek/oldalszam/:oldalszam", getKonyvekByOldalszam);
 app.get("/konyvek/evszam/:evszam", getEvUtaniKonyvek);
+
+app.post("/konyvek", createKonyv);
+
+app.patch("/konyvek/:id", updateKonyv);
+
+app.delete("/konyvek/:id", deleteKonyv)
