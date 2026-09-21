@@ -121,12 +121,13 @@ const updateKonyv = (req, res) => {
         return res.status(404).json({ message: "A törölni kívánt könyv nem elérhető!" });
     }
 
-    if (title !== undefined) konyv.title = title;
-    if (author !== undefined) konyv.author = author;
-    if (category !== undefined) konyv.category = category;
-    if (year !== undefined) konyv.year = Number(year);
-    if (pages !== undefined) konyv.pages = Number(pages);
-    if (price !== undefined) konyv.price = Number(price);
+    //Típusellenőrzés
+    if (title !== "string") konyv.title = title;
+    if (author !== "string") konyv.author = author;
+    if (category !== "string") konyv.category = category;
+    if (year !== "number") konyv.year = Number(year);
+    if (pages !== "number") konyv.pages = Number(pages);
+    if (price !== "number") konyv.price = Number(price);
 
     res.status(200).json({ 
         message: "Sikeres módosítás!"
